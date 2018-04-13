@@ -7,6 +7,7 @@ package com.yansi.cursomc.servives;
 
 import com.yansi.cursomc.domain.Categoria;
 import com.yansi.cursomc.repositories.CategoriaRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +20,9 @@ public class CategoriaServices {
     public Categoria bucar(Integer id) {
         Categoria obj = repo.findOne(id);
         return obj;
+    }
+
+    public void saveList(List<Categoria> asList) {
+        repo.save(asList);
     }
 }
