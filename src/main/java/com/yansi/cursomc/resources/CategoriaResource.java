@@ -6,9 +6,13 @@
 package com.yansi.cursomc.resources;
 
 import com.yansi.cursomc.domain.Categoria;
+import com.yansi.cursomc.servives.CategoriaServices;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,16 +20,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/categorias")
 public class CategoriaResource {
 
-    @GetMapping
-    public List<Categoria> listar() {
+    @Autowired
+    CategoriaServices service;
 
-        Categoria cat1 = new Categoria(1, "Java");
-        Categoria cat2 = new Categoria(2, "CSS");
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<?> find(@PathVariable Integer id) {
 
-        List<Categoria> catList = new ArrayList<>();
-        catList.add(cat1);
-        catList.add(cat2);
+        Categoria obj = service.bucar(id);
 
-        return catList;
+        return ResponseEntity.ok().body(obj);
     }
 }
