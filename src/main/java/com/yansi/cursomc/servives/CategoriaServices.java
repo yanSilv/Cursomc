@@ -6,6 +6,7 @@
 package com.yansi.cursomc.servives;
 
 import com.yansi.cursomc.domain.Categoria;
+import com.yansi.cursomc.error.ObjectNotFoundException;
 import com.yansi.cursomc.repositories.CategoriaRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,11 @@ public class CategoriaServices {
 
     public Categoria bucar(Integer id) {
         Categoria obj = repo.findOne(id);
+
+        if (obj == null) {
+            throw new ObjectNotFoundException("Objeto não encontrado! ID: " + id + " Tipo: " + Categoria.class.getName());
+        }
+
         return obj;
     }
 

@@ -5,6 +5,7 @@
  */
 package com.yansi.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,7 @@ public class Categoria implements Serializable {
         Mapeamento de relacionamento das tabelas Produtos x Categoria
      */
     @ManyToMany(mappedBy = "categorias")
+    @JsonManagedReference
     private List<Produto> produtos = new ArrayList<>();
 
     public Categoria() {
