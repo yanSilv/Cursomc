@@ -6,7 +6,7 @@
 package com.yansi.cursomc.resources;
 
 import com.yansi.cursomc.domain.Categoria;
-import com.yansi.cursomc.servives.CategoriaServices;
+import com.yansi.cursomc.servives.CategoriaService;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CategoriaResource {
 
     @Autowired
-    CategoriaServices service;
+    CategoriaService service;
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<?> find(@PathVariable Integer id) {
