@@ -2,10 +2,15 @@ package com.yansi.cursomc;
 
 import com.yansi.cursomc.domain.Categoria;
 import com.yansi.cursomc.domain.Cidade;
+import com.yansi.cursomc.domain.Cliente;
+import com.yansi.cursomc.domain.Endereco;
 import com.yansi.cursomc.domain.Estado;
 import com.yansi.cursomc.domain.Produto;
+import com.yansi.cursomc.enums.TipoCliente;
 import com.yansi.cursomc.servives.CategoriaService;
 import com.yansi.cursomc.servives.CidadeService;
+import com.yansi.cursomc.servives.ClienteService;
+import com.yansi.cursomc.servives.EnderecoService;
 import com.yansi.cursomc.servives.EstadoService;
 import com.yansi.cursomc.servives.ProdutoServices;
 import java.util.Arrays;
@@ -28,6 +33,12 @@ public class CursomcApplication implements CommandLineRunner {
 
     @Autowired
     CidadeService serviceCidade;
+
+    @Autowired
+    ClienteService serviceCliente;
+
+    @Autowired
+    EnderecoService serviceEndereco;
 
     public static void main(String[] args) {
         SpringApplication.run(CursomcApplication.class, args);
@@ -68,6 +79,17 @@ public class CursomcApplication implements CommandLineRunner {
         serviceProduto.saveList(Arrays.asList(pro1, pro2, pro3));
         serviceEstado.saveList(Arrays.asList(est1, est2));
         serviceCidade.saveList(Arrays.asList(c1, c2, c3));
+
+        Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+        cli1.getTelefones().addAll(Arrays.asList("32763323", "93838393"));
+
+        Endereco e1 = new Endereco(null, "Rua flores", "300", "Ap 203", "Jardim", "3820834", cli1, c1);
+        Endereco e2 = new Endereco(null, "Avenida matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
+
+        cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+
+        serviceCliente.saveList(Arrays.asList(cli1));
+        serviceEndereco.saveLit(Arrays.asList(e1, e2));
 
     }
 }
