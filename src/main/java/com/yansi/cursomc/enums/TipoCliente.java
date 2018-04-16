@@ -5,10 +5,6 @@
  */
 package com.yansi.cursomc.enums;
 
-/**
- *
- * @author programador
- */
 public enum TipoCliente {
     PESSOAFISICA(1, "Pessoa Física"),
     PESSOAJURIDICA(2, "Pessoa Jurídica");
