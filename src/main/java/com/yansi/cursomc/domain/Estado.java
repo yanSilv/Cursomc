@@ -5,6 +5,8 @@
  */
 package com.yansi.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,7 @@ public class Estado implements Serializable {
     private String nome;
 
     @OneToMany(mappedBy = "estado")
+    @JsonBackReference
     private List<Cidade> cidades = new ArrayList<>();
 
     public Estado() {

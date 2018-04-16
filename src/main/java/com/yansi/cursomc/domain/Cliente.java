@@ -5,6 +5,7 @@
  */
 package com.yansi.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.yansi.cursomc.enums.TipoCliente;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,7 +20,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Cliente implements Serializable {
@@ -39,6 +39,7 @@ public class Cliente implements Serializable {
     private Set<String> telefones = new HashSet<>();
 
     @OneToMany(mappedBy = "cliente")
+    @JsonManagedReference
     private List<Endereco> enderecos = new ArrayList<>();
 
     public Cliente() {
