@@ -6,6 +6,7 @@
 package com.yansi.cursomc.servives;
 
 import com.yansi.cursomc.domain.Pedido;
+import com.yansi.cursomc.error.ObjectNotFoundException;
 import com.yansi.cursomc.repositories.PedidoRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,16 @@ public class PedidoService {
 
     public void saveList(List<Pedido> asList) {
         repo.save(asList);
+    }
+
+    public Pedido bucar(Integer id) {
+        Pedido obj = repo.findOne(id);
+
+        if (obj == null) {
+            throw new ObjectNotFoundException("Objeto não encontrado! ID: " + id + " Tipo: " + Pedido.class.getName());
+        }
+
+        return obj;
     }
 
 }

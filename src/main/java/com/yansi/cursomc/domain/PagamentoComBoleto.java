@@ -1,5 +1,6 @@
 package com.yansi.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.yansi.cursomc.enums.EstadoPagamento;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -9,7 +10,10 @@ public class PagamentoComBoleto extends Pagamento {
 
     private static final Long serialVersionUID = 1L;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataVencimento;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataPagamento;
 
     public PagamentoComBoleto() {

@@ -30,7 +30,6 @@ public class Categoria implements Serializable {
         Mapeamento de relacionamento das tabelas Produtos x Categoria
      */
     @ManyToMany(mappedBy = "categorias")
-    @JsonManagedReference
     private List<Produto> produtos = new ArrayList<>();
 
     public Categoria() {
