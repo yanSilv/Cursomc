@@ -6,10 +6,12 @@
 package com.yansi.cursomc.servives;
 
 import com.yansi.cursomc.domain.Categoria;
+import com.yansi.cursomc.error.DataIntegrityException;
 import com.yansi.cursomc.error.ObjectNotFoundException;
 import com.yansi.cursomc.repositories.CategoriaRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,7 +20,7 @@ public class CategoriaService {
     @Autowired
     private CategoriaRepository repo;
 
-    public Categoria bucar(Integer id) {
+    public Categoria buscar(Integer id) {
         Categoria obj = repo.findOne(id);
 
         if (obj == null) {
@@ -30,5 +32,26 @@ public class CategoriaService {
 
     public void saveList(List<Categoria> asList) {
         repo.save(asList);
+    }
+
+    public Categoria insert(Categoria obj) {
+
+        return repo.save(obj);
+    }
+
+    public Categoria update(Categoria obj) {
+        buscar(obj.getId());
+        return repo.save(obj);
+    }
+
+    public void delete(Integer id) {
+        buscar(id);
+        try {
+
+            repo.delete(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DataIntegrityException("Não é possivel deletar uma Categoria com produto");
+        }
+
     }
 }

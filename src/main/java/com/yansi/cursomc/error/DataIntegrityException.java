@@ -5,16 +5,15 @@
  */
 package com.yansi.cursomc.error;
 
-public class ObjectNotFoundException extends RuntimeException {
+public class DataIntegrityException extends RuntimeException {
 
     private final Long serialVersionUID = 1L;
 
-    public ObjectNotFoundException(String msg) {
+    public DataIntegrityException(String msg) {
         super(msg);
     }
 
-    public ObjectNotFoundException(String msg, Throwable cause) {
+    public DataIntegrityException(String msg, Throwable cause) {
         super(msg, cause);
     }
-
 }
