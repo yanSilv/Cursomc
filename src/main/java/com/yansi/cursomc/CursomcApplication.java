@@ -68,6 +68,24 @@ public class CursomcApplication implements CommandLineRunner {
         //Inicializa Categoria
         Categoria cat1 = new Categoria(null, "Informatica");
         Categoria cat2 = new Categoria(null, "Escritorio");
+        Categoria cat3 = new Categoria(null, "Colégio");
+        Categoria cat4 = new Categoria(null, "Faculdade");
+        Categoria cat5 = new Categoria(null, "Clube");
+        Categoria cat6 = new Categoria(null, "Academia");
+        Categoria cat7 = new Categoria(null, "Ginastica");
+        Categoria cat8 = new Categoria(null, "Natação");
+        Categoria cat9 = new Categoria(null, "Biblioteca");
+        Categoria cat10 = new Categoria(null, "Mercado");
+        Categoria cat11 = new Categoria(null, "Cinema");
+        Categoria cat12 = new Categoria(null, "Shopping");
+        Categoria cat13 = new Categoria(null, "Cosmedicos");
+        Categoria cat14 = new Categoria(null, "Farmacia");
+        Categoria cat15 = new Categoria(null, "Feira");
+        Categoria cat16 = new Categoria(null, "Esporte");
+        Categoria cat17 = new Categoria(null, "Biologico");
+        Categoria cat18 = new Categoria(null, "Computador");
+        Categoria cat19 = new Categoria(null, "Programação");
+        Categoria cat20 = new Categoria(null, "Aviação");
 
         //Inicializa Produto
         Produto pro1 = new Produto(null, "Computador", 2000.00);
@@ -93,7 +111,26 @@ public class CursomcApplication implements CommandLineRunner {
         est1.getCidades().addAll(Arrays.asList(c1));
         est2.getCidades().addAll(Arrays.asList(c2, c3));
 
-        serviceCategoria.saveList(Arrays.asList(cat1, cat2));
+        serviceCategoria.saveList(Arrays.asList(cat1,
+                cat2,
+                cat3,
+                cat4,
+                cat5,
+                cat6,
+                cat7,
+                cat8,
+                cat9,
+                cat10,
+                cat11,
+                cat12,
+                cat13,
+                cat14,
+                cat15,
+                cat16,
+                cat17,
+                cat18,
+                cat19,
+                cat20));
         serviceProduto.saveList(Arrays.asList(pro1, pro2, pro3));
         serviceEstado.saveList(Arrays.asList(est1, est2));
         serviceCidade.saveList(Arrays.asList(c1, c2, c3));

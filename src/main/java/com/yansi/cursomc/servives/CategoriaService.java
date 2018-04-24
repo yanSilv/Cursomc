@@ -12,6 +12,9 @@ import com.yansi.cursomc.repositories.CategoriaRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -58,5 +61,10 @@ public class CategoriaService {
             throw new DataIntegrityException("Não é possivel deletar uma Categoria com produto");
         }
 
+    }
+
+    public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+        PageRequest pageRequest = new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy);
+        return repo.findAll(pageRequest);
     }
 }
