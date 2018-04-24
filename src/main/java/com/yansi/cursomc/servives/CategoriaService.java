@@ -30,6 +30,11 @@ public class CategoriaService {
         return obj;
     }
 
+    public List<Categoria> findAll() {
+        List<Categoria> list = repo.findAll();
+        return list;
+    }
+
     public void saveList(List<Categoria> asList) {
         repo.save(asList);
     }
