@@ -6,10 +6,15 @@
 package com.yansi.cursomc.dto;
 
 import com.yansi.cursomc.domain.Categoria;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
 public class CategoriaDTO {
 
     private Integer id;
+
+    @NotEmpty(message = "Preenchimento obrigatorio")
+    @Length(min = 5, max = 80, message = "O tamanho deve ser entre 5 e 80")
     private String nome;
 
     public CategoriaDTO() {
