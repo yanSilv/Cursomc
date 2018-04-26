@@ -5,9 +5,7 @@
  */
 package com.yansi.cursomc.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.yansi.cursomc.enums.TipoCliente;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -55,7 +53,7 @@ public class Cliente implements Serializable {
         this.nome = nome;
         this.email = email;
         this.cpfOuCnpj = cpfOuCnpj;
-        this.tipoCliente = tipoCliente.getCod();
+        this.tipoCliente = (tipoCliente == null) ? null : tipoCliente.getCod();
     }
 
     public Integer getId() {
