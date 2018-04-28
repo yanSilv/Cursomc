@@ -1,4 +1,4 @@
-package com.yansi.cursomc.servives;
+package com.yansi.cursomc.services;
 
 import com.yansi.cursomc.domain.ItemPedido;
 import com.yansi.cursomc.repositories.ItemPedidoRepository;

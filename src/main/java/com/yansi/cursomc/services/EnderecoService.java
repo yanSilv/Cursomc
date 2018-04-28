@@ -3,21 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.yansi.cursomc.servives;
+package com.yansi.cursomc.services;
 
-import com.yansi.cursomc.domain.Produto;
-import com.yansi.cursomc.repositories.ProdutoRepository;
+import com.yansi.cursomc.domain.Endereco;
+import com.yansi.cursomc.repositories.EnderecoRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProdutoServices {
+public class EnderecoService {
 
     @Autowired
-    private ProdutoRepository repo;
+    private EnderecoRepository repo;
 
-    public void saveList(List<Produto> asList) {
+    public void saveLit(List<Endereco> asList) {
         repo.save(asList);
     }
 

@@ -7,7 +7,7 @@ package com.yansi.cursomc.resources;
 
 import com.yansi.cursomc.domain.Categoria;
 import com.yansi.cursomc.dto.CategoriaDTO;
-import com.yansi.cursomc.servives.CategoriaService;
+import com.yansi.cursomc.services.CategoriaService;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;

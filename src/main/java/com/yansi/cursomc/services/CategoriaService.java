@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.yansi.cursomc.servives;
+package com.yansi.cursomc.services;
 
 import com.yansi.cursomc.domain.Categoria;
 import com.yansi.cursomc.dto.CategoriaDTO;

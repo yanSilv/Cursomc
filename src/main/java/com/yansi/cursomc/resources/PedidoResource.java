@@ -6,7 +6,7 @@
 package com.yansi.cursomc.resources;
 
 import com.yansi.cursomc.domain.Pedido;
-import com.yansi.cursomc.servives.PedidoService;
+import com.yansi.cursomc.services.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

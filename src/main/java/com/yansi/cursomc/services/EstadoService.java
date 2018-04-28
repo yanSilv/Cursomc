@@ -3,21 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.yansi.cursomc.servives;
+package com.yansi.cursomc.services;
 
-import com.yansi.cursomc.domain.Pagamento;
-import com.yansi.cursomc.repositories.PagamentoRepository;
+import com.yansi.cursomc.domain.Categoria;
+import com.yansi.cursomc.domain.Estado;
+import com.yansi.cursomc.repositories.EstadoRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PagamentoService {
+public class EstadoService {
 
     @Autowired
-    private PagamentoRepository repo;
+    private EstadoRepository repo;
 
-    public void saveList(List<Pagamento> asList) {
+    public void saveList(List<Estado> asList) {
         repo.save(asList);
     }
 }
