@@ -11,11 +11,13 @@ import com.yansi.cursomc.domain.Endereco;
 import com.yansi.cursomc.dto.ClienteDTO;
 import com.yansi.cursomc.dto.ClienteNewDTO;
 import com.yansi.cursomc.enums.TipoCliente;
+import com.yansi.cursomc.error.DataIntegrityException;
 import com.yansi.cursomc.error.ObjectNotFoundException;
 import com.yansi.cursomc.repositories.ClienteRepository;
 import com.yansi.cursomc.repositories.EnderecoRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
@@ -79,7 +81,11 @@ public class ClienteService {
 
     public void delete(Integer id) {
         buscar(id);
-        repo.delete(id);
+        try {
+            repo.delete(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DataIntegrityException("Não é possivel deletar um Cliente com pedido");
+        }
     }
 
     public Cliente update(Cliente obj) {
