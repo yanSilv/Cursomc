@@ -1,41 +1,41 @@
 package com.yansi.cursomc.services.validation;
 
 import com.yansi.cursomc.domain.Cliente;
-import com.yansi.cursomc.dto.ClienteNewDTO;
-import com.yansi.cursomc.enums.TipoCliente;
+import com.yansi.cursomc.dto.ClienteDTO;
 import com.yansi.cursomc.error.FieldMessage;
 import com.yansi.cursomc.repositories.ClienteRepository;
-import com.yansi.cursomc.utils.BR;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.HandlerMapping;
 
-public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert, ClienteNewDTO> {
+public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate, ClienteDTO> {
+
+    @Autowired
+    private HttpServletRequest httpServletRequest;
 
     @Autowired
     private ClienteRepository clienteRepository;
 
     @Override
-    public void initialize(ClienteInsert a) {
+    public void initialize(ClienteUpdate a) {
 
     }
 
     @Override
-    public boolean isValid(ClienteNewDTO objDto, ConstraintValidatorContext context) {
+    public boolean isValid(ClienteDTO objDto, ConstraintValidatorContext context) {
+
+        Map<String, String> map = (Map<String, String>) httpServletRequest.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
+        Integer uriId = Integer.parseInt(map.get("id"));
+
         List<FieldMessage> list = new ArrayList<>();
 
-        if (objDto.getTipo().equals(TipoCliente.PESSOAFISICA.getCod()) && !BR.isValidCPF(objDto.getCpfOuCnpj())) {
-            list.add(new FieldMessage("cpfOuCnpj", "CPF invalido"));
-        }
-
-        if (objDto.getTipo().equals(TipoCliente.PESSOAJURIDICA.getCod()) && !BR.isValidCNPJ(objDto.getCpfOuCnpj())) {
-            list.add(new FieldMessage("cpfOuCnpj", "CNPJ invalido"));
-        }
-
         Cliente cli = clienteRepository.findByEmail(objDto.getEmail());
-        if (cli != null) {
+        if (cli != null && !cli.getId().equals(uriId)) {
             list.add(new FieldMessage("Email", "Email já cadastrado"));
         }
 
