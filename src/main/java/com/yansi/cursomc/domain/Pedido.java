@@ -7,7 +7,6 @@ package com.yansi.cursomc.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
@@ -46,7 +45,6 @@ public class Pedido implements Serializable {
     @JoinColumn(name = "endereco_entrega_id")
     private Endereco enderecoDeEntega;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "id.pedido")
     private Set<ItemPedido> itens = new HashSet<>();
 
@@ -58,6 +56,15 @@ public class Pedido implements Serializable {
         this.instante = instante;
         this.cliente = cliente;
         this.enderecoDeEntega = enderecoDeEntega;
+    }
+
+    public double getValorTotal() {
+        double soma = 0.0;
+        for (ItemPedido iten : itens) {
+            soma = soma + iten.getSubTotal();
+        }
+
+        return soma;
     }
 
     public Integer getId() {
