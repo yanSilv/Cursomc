@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.yansi.cursomc.services;
 
 import com.yansi.cursomc.domain.ItemPedido;
@@ -36,6 +31,12 @@ public class PedidoService {
     @Autowired
     private ItemPedidoRepository itemPedidoService;
 
+    @Autowired
+    private ClienteService clienteService;
+
+    @Autowired
+    private EmailService emailService;
+
     public void saveList(List<Pedido> asList) {
         repo.save(asList);
     }
@@ -53,6 +54,7 @@ public class PedidoService {
     public Pedido insert(Pedido obj) {
         obj.setId(null);
         obj.setInstante(new Date());
+        obj.setCliente(clienteService.buscar(obj.getCliente().getId()));
         obj.getPagamento().setEstadoPagamento(EstadoPagamento.PENDENTE);
         obj.getPagamento().setPedido(obj);
 
@@ -68,12 +70,14 @@ public class PedidoService {
         //Pega a lista de Pedido.
         for (ItemPedido ip : obj.getItens()) {
             ip.setDesconto(0.0);
+            ip.setProduto(produtoServices.find(ip.getProduto().getId()));
             ip.setPreco(produtoServices.find(ip.getProduto().getId()).getPreco());
             ip.setPedido(obj);
 
         }
 
         itemPedidoService.save(obj.getItens());
+        emailService.sendOrderConfirmationEmail(obj);
         return obj;
 
     }

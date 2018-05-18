@@ -1,5 +1,7 @@
 package com.yansi.cursomc.config;
 
+import com.yansi.cursomc.services.EmailService;
+import com.yansi.cursomc.services.MockEmailService;
 import com.yansi.cursomc.services.test.DBServices;
 import java.text.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +22,10 @@ public class TestConfig {
         dBServices.instantiateTestDatabase();
 
         return true;
+    }
+
+    @Bean
+    public EmailService emailService() {
+        return new MockEmailService();
     }
 }
