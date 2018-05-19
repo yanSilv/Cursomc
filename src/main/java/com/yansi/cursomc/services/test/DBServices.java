@@ -11,6 +11,7 @@ import com.yansi.cursomc.domain.PagamentoComCartao;
 import com.yansi.cursomc.domain.Pedido;
 import com.yansi.cursomc.domain.Produto;
 import com.yansi.cursomc.enums.EstadoPagamento;
+import com.yansi.cursomc.enums.Perfil;
 import com.yansi.cursomc.enums.TipoCliente;
 import com.yansi.cursomc.services.CategoriaService;
 import com.yansi.cursomc.services.CidadeService;
@@ -25,6 +26,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -56,6 +58,9 @@ public class DBServices {
 
     @Autowired
     ItemPedidoService serviceItemPedido;
+
+    @Autowired
+    BCryptPasswordEncoder encode;
 
     public void instantiateTestDatabase() throws ParseException {
         //Inicializa Categoria
@@ -151,16 +156,22 @@ public class DBServices {
         serviceEstado.saveList(Arrays.asList(est1, est2));
         serviceCidade.saveList(Arrays.asList(c1, c2, c3));
 
-        Cliente cli1 = new Cliente(null, "Maria Silva", "yanjavaba@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+        Cliente cli1 = new Cliente(null, "Maria Silva", "yanjavaba@gmail.com", "36378912377", TipoCliente.PESSOAFISICA, encode.encode("123"));
         cli1.getTelefones().addAll(Arrays.asList("32763323", "93838393"));
+
+        Cliente cli2 = new Cliente(null, "Ana Silva", "jaguaryan@hotmail.com", "57691618506", TipoCliente.PESSOAFISICA, encode.encode("123"));
+        cli2.addPerfil(Perfil.ADMIN);
+        cli2.getTelefones().addAll(Arrays.asList("32764423", "93848393"));
 
         Endereco e1 = new Endereco(null, "Rua flores", "300", "Ap 203", "Jardim", "3820834", cli1, c1);
         Endereco e2 = new Endereco(null, "Avenida matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
+        Endereco e3 = new Endereco(null, "Avenida Floriano", "2106", null, "Centro", "281777012", cli2, c2);
 
         cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+        cli2.getEnderecos().addAll(Arrays.asList(e3));
 
-        serviceCliente.saveList(Arrays.asList(cli1));
-        serviceEndereco.saveLit(Arrays.asList(e1, e2));
+        serviceCliente.saveList(Arrays.asList(cli1, cli2));
+        serviceEndereco.saveLit(Arrays.asList(e1, e2, e3));
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
