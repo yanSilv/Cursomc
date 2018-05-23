@@ -1,5 +1,6 @@
 package com.yansi.cursomc.services.abstracts;
 
+import com.yansi.cursomc.domain.Cliente;
 import com.yansi.cursomc.domain.Pedido;
 import com.yansi.cursomc.services.EmailService;
 import java.util.Date;
@@ -66,6 +67,21 @@ public abstract class AbstractEmailService implements EmailService {
         mimeMessageHelper.setSentDate(new Date(System.currentTimeMillis()));
         mimeMessageHelper.setText(htmlFromTemplatePedido(obj), true);
         return mimeMessage;
+    }
+
+    public void sendNewPasswordEmail(Cliente cliente, String newPass) {
+        SimpleMailMessage sm = prepareNewPassewordEmail(cliente, newPass);
+        sendEmail(sm);
+    }
+
+    protected SimpleMailMessage prepareNewPassewordEmail(Cliente cliente, String newPass) {
+        SimpleMailMessage sm = new SimpleMailMessage();
+        sm.setTo(cliente.getEmail());
+        sm.setFrom(sender);
+        sm.setSubject("Solicitação de nova senha");
+        sm.setSentDate(new Date(System.currentTimeMillis()));
+        sm.setText("Nova Senha: " + newPass);
+        return sm;
     }
 
 }

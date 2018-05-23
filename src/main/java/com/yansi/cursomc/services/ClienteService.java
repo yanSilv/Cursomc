@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.yansi.cursomc.services;
 
 import com.yansi.cursomc.domain.Cidade;
@@ -10,11 +5,14 @@ import com.yansi.cursomc.domain.Cliente;
 import com.yansi.cursomc.domain.Endereco;
 import com.yansi.cursomc.dto.ClienteDTO;
 import com.yansi.cursomc.dto.ClienteNewDTO;
+import com.yansi.cursomc.enums.Perfil;
 import com.yansi.cursomc.enums.TipoCliente;
 import com.yansi.cursomc.error.DataIntegrityException;
 import com.yansi.cursomc.error.ObjectNotFoundException;
+import com.yansi.cursomc.exceptions.AuthorizationException;
 import com.yansi.cursomc.repositories.ClienteRepository;
 import com.yansi.cursomc.repositories.EnderecoRepository;
+import com.yansi.cursomc.security.UserSS;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -42,6 +40,15 @@ public class ClienteService {
     }
 
     public Cliente buscar(Integer id) {
+
+        //Verifica se o usuario tem autorização.
+        UserSS user = UserService.authenticated();
+
+        if (user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+            throw new AuthorizationException("Acesso Negado");
+        }
+
+        //Busca o Cliente.
         Cliente obj = repo.findOne(id);
 
         if (obj == null) {

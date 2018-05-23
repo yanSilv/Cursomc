@@ -1,16 +1,22 @@
 package com.yansi.cursomc.services;
 
+import com.yansi.cursomc.domain.Cliente;
 import com.yansi.cursomc.domain.ItemPedido;
 import com.yansi.cursomc.domain.PagamentoComBoleto;
 import com.yansi.cursomc.domain.Pedido;
 import com.yansi.cursomc.enums.EstadoPagamento;
 import com.yansi.cursomc.error.ObjectNotFoundException;
+import com.yansi.cursomc.exceptions.AuthorizationException;
 import com.yansi.cursomc.repositories.ItemPedidoRepository;
 import com.yansi.cursomc.repositories.PedidoRepository;
+import com.yansi.cursomc.security.UserSS;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -80,6 +86,17 @@ public class PedidoService {
         emailService.sendOrderConfirmationHtmlEmail(obj);
         return obj;
 
+    }
+
+    public Page<Pedido> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+        UserSS user = UserService.authenticated();
+        if (user == null) {
+            throw new AuthorizationException("Acesso Negado.");
+        }
+
+        PageRequest pageRequest = new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy);
+        Cliente cliente = clienteService.buscar(user.getId());
+        return repo.findByCliente(cliente, pageRequest);
     }
 
 }
