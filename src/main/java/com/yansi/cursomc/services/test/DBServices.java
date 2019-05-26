@@ -1,5 +1,13 @@
 package com.yansi.cursomc.services.test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
 import com.yansi.cursomc.domain.Categoria;
 import com.yansi.cursomc.domain.Cidade;
 import com.yansi.cursomc.domain.Cliente;
@@ -22,12 +30,6 @@ import com.yansi.cursomc.services.ItemPedidoService;
 import com.yansi.cursomc.services.PagamentoService;
 import com.yansi.cursomc.services.PedidoService;
 import com.yansi.cursomc.services.ProdutoServices;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
 
 @Service
 public class DBServices {

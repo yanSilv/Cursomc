@@ -5,12 +5,13 @@
  */
 package com.yansi.cursomc.services;
 
-import com.yansi.cursomc.domain.Categoria;
-import com.yansi.cursomc.domain.Estado;
-import com.yansi.cursomc.repositories.EstadoRepository;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.yansi.cursomc.domain.Estado;
+import com.yansi.cursomc.repositories.EstadoRepository;
 
 @Service
 public class EstadoService {
@@ -20,5 +21,9 @@ public class EstadoService {
 
     public void saveList(List<Estado> asList) {
         repo.save(asList);
+    }
+    
+    public List<Estado> findAllOrderNome() {
+    	return repo.findAllByOrderByNome();
     }
 }

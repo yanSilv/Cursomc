@@ -21,5 +21,9 @@ public class CidadeService {
     public void saveList(List<Cidade> asList) {
         repo.save(asList);
     }
+    
+    public List<Cidade> findCidades(Integer estadoId) {
+    	return repo.findCidades(estadoId);
+    }
 
 }
